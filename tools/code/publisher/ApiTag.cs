@@ -28,6 +28,7 @@ internal static class ApiTag
     private static IEnumerable<(ApiName ApiName, ImmutableList<TagName> TagNames)> GetArtifactApiTags(IReadOnlyCollection<FileInfo> files, JsonObject configurationJson, ServiceDirectory serviceDirectory)
     {
         var fileArtifacts = GetApiTagsFiles(files, serviceDirectory)
+                                 .Where(file => File.Exists(file.Path.ToString()))
                                  .Select(file =>
                                  {
                                      var apiName = GetApiName(file);
